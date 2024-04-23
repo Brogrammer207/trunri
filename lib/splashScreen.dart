@@ -50,76 +50,134 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          FadeTransition(
-            opacity: _imageAnimation,
-            child: Image.asset('assets/images/indian.png'),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FadeTransition(
-            opacity: _textAnimation,
-            child: const Text(
-              'TRU NRI',
-              style: TextStyle(fontSize: 50, fontWeight: FontWeight.w600, color: Color(0xffFF9933)),
-            ),
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          GestureDetector(
-            onPanUpdate: (details) {
-              setState(() {
-                _sliderValue += details.delta.dx / 300; // Adjust the divisor to control the sensitivity
-                _sliderValue = _sliderValue.clamp(0.0, 1.0);
-              });
-            },
-            onPanEnd: (_) {
-              if (_sliderValue >= 1.0) {
-                _navigateToNextScreen();
-              } else {
-                setState(() {
-                  _sliderValue = 0.0;
-                });
-              }
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Color(0xff003161),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Stack(
-                children: [
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 300),
-                    left: _sliderValue * (MediaQuery.of(context).size.width * 0.6),
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: const BoxDecoration(
-                          color: Color(0xffFF9933),
-                            borderRadius:
-                                BorderRadius.only(topLeft: Radius.circular(25), bottomLeft: Radius.circular(25))),
-                        child: Icon(Icons.arrow_forward, color: Colors.white)),
+      body: Container(
+        color: Color(0xffE9EAF7),
+        height: size.height,
+        width: size.width,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                height: size.height * 0.53,
+                width: size.width,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
                   ),
-                  Center(
-                    child: Text(
-                      'Next',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                  color: Color(0xffFF9933),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      "assets/images/indian.png",
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              top: size.height * 0.6,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Namaste! Unite, Flourish\nTogether, Celebrate!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          color: Color(0xff353047),
+                          height: 1.2),
+                    ),
+                    const SizedBox(height: 25),
+                    Text(
+                      "Welcome to our community app! Together\nlet's make connections that matter.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Color(0xff6F6B7A),
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.07),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                      ),
+                      child: Container(
+                        height: size.height * 0.08,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Color(0xffEBEBF2).withOpacity(0.9),
+                          border: Border.all(
+                            color: Colors.white,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12.withOpacity(0.05),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: const Offset(0, -1),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: size.height * 0.08,
+                                width: size.width / 2.2,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Register",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Color(0xff353047),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const SignUpScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Color(0xff353047),
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
