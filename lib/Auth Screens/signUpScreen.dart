@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               children: [
                 SizedBox(height: size.height * 0.03),
                 Text(
-                  "Hello Again!",
+                  "Hello Indian!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
